@@ -10,7 +10,7 @@ require "#{__dir__}/zoi/zoi_get.rb"
 
 SLACK_API_KEY = ENV['SLACK_API_KEY']
 
-response = Http.post('https://slack.com/api/rtm.start',
+response = HTTP.post('https://slack.com/api/rtm.start',
                      params: { token: SLACK_API_KEY })
 
 rc = JSON.parse(response.body)
