@@ -8,5 +8,6 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 gem 'connpass'
 
 # For Using Real Time Messaging API
-gem 'faye-websocket'
 gem 'eventmachine'
+gem 'faye-websocket'
+gem 'http'
