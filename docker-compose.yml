@@ -6,4 +6,7 @@ services:
       context: ./
       dockerfile: docker/ruby/Dockerfile
     volumes:
-      - ./application:app
+      - ./application:/app
+    environment: 
+      SLACK_API_KEY: ${SLACK_API_KEY}
+    command: ruby app.rb
