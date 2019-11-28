@@ -5,6 +5,9 @@ require 'http'
 require 'eventmachine'
 require 'faye/websocket'
 
+# getting a zoi image link
+require "#{__dir__}/zoi/zoi_get.rb"
+
 SLACK_API_KEY = ENV['SLACK_API_KEY']
 
 response = Http.post('https://slack.com/api/rtm.start',
@@ -31,7 +34,7 @@ EM.run do
       websocket_connection.send(
         {
           type: 'message',
-          text: 'https://pbs.twimg.com/media/BswuNkICcAE4olR.jpg:large',
+          text: zoi_get,
           channel: data['channel']
         }.to_json
       )
