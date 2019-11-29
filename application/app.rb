@@ -9,42 +9,47 @@ require 'faye/websocket'
 require "#{__dir__}/zoi/zoi_get.rb"
 
 SLACK_API_KEY = ENV['SLACK_API_KEY']
+def start_running_bot
+  response = HTTP.post('https://slack.com/api/rtm.start',
+                      params: { token: SLACK_API_KEY })
 
-response = HTTP.post('https://slack.com/api/rtm.start',
-                     params: { token: SLACK_API_KEY })
+  rc = JSON.parse(response.body)
 
-rc = JSON.parse(response.body)
+  WEBSOCKET_URL = rc['url']
 
-WEBSOCKET_URL = rc['url']
+  EM.run do
+    # Starting Connection with Websocket
+    websocket_connection = Faye::WebSocket::Client.new(WEBSOCKET_URL)
 
-EM.run do
-  # Starting Connection with Websocket
-  websocket_connection = Faye::WebSocket::Client.new(WEBSOCKET_URL)
+    # Run when Established Connection
+    websocket_connection.on :open do
+      p [:open]
+    end
 
-  # Run when Established Connection
-  websocket_connection.on :open do
-    p [:open]
-  end
+    # Accept response from RTM API
+    websocket_connection.on :message do |event|
+      data = JSON.parse(event.data)
+      p [:Message, data]
+      if data['text'] == '今日も一日'
+        websocket_connection.send(
+          {
+            type: 'message',
+            text: zoi_get,
+            channel: data['channel']
+          }.to_json
+        )
+      end
+    end
 
-  # Accept response from RTM API
-  websocket_connection.on :message do |event|
-    data = JSON.parse(event.data)
-    p [:Message, data]
-    if data['text'] == '今日も一日'
-      websocket_connection.send(
-        {
-          type: 'message',
-          text: zoi_get,
-          channel: data['channel']
-        }.to_json
-      )
+    # Run when Closing Connection
+    websocket_connection.on :cose do
+      p [:close, event.code]
+      websocket_connection = nil
+      EM.stop
+      # restart running bot process
+      start_running_bot
     end
   end
-
-  # Run when Closing Connection
-  websocket_connection.on :cose do
-    p [:close, event.code]
-    websocket_connection = nil
-    EM.stop
-  end
 end
+
+start_running_bot
