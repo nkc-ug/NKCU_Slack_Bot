@@ -12,7 +12,7 @@ require "#{__dir__}/zoi/zoi_get"
 require "#{__dir__}/get_channel_id/get_channel_id"
 
 SLACK_API_KEY = ENV['SLACK_API_KEY']
-BOT_NOTIFICATION_CHANNEL = ENV['BOT_NOTIFICATION_CHANNEL']
+BOT_NOTIFICATION_CHANNEL = search_channelid(ENV['BOT_NOTIFICATION_CHANNEL'])
 
 def start_running_bot
   response = HTTP.post('https://slack.com/api/rtm.start',
