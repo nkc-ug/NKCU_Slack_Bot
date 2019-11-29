@@ -9,7 +9,7 @@ require 'faye/websocket'
 require "#{__dir__}/zoi/zoi_get"
 
 # searching channel id
-require "#{__dir__}/get_channel_list/get_channel_list"
+require "#{__dir__}/get_channel_id/get_channel_id"
 
 SLACK_API_KEY = ENV['SLACK_API_KEY']
 BOT_NOTIFICATION_CHANNEL = ENV['BOT_NOTIFICATION_CHANNEL']
