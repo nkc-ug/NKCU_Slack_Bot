@@ -2,6 +2,9 @@
 
 SlackBot container service building on Ruby.
 
+# feature
++ Notification Emoji published.
+
 # Command in slack
 + 今日も一日
   + Return a image(inspire: [zoi.herokuapp.com](https://zoi.herokuapp.com/))
@@ -11,10 +14,13 @@ SlackBot container service building on Ruby.
 1. Issue a Token from [SlackAPI](https://api.slack.com/).
   + You can use `Bots` app. Search it in your workspace apps.
 
-2. Create `.env` file and write slack api token.
+2. Create `.env` file and write slack api token, etc.
 
 ```.env
+# API KEY
 SLACK_API_KEY=INSERT_HERE
+# Notify Channel When publishing Emoji, etc
+BOT_NOTIFICATION_CHANNEL=general
 ```
 The file structure should be like this.
 ```
