@@ -9,4 +9,5 @@ services:
       - ./application:/app
     environment: 
       SLACK_API_KEY: ${SLACK_API_KEY}
+      BOT_NOTIFICATION_CHANNEL: ${BOT_NOTIFICATION_CHANNEL}
     command: ruby app.rb
