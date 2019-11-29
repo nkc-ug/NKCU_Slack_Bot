@@ -56,7 +56,7 @@ def start_running_bot
           websocket_connection.send(
             {
               type: 'message',
-              text: "New Emojis Published! #{emoji_name}",
+              text: "New Emojis Published! :#{emoji_name}:",
               channel: BOT_NOTIFICATION_CHANNEL
             }.to_json
           )
