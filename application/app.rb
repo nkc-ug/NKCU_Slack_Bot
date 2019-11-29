@@ -17,11 +17,11 @@ def start_running_bot
 
   rc = JSON.parse(response.body)
 
-  WEBSOCKET_URL = rc['url']
+  websocket_url = rc['url']
 
   EM.run do
     # Starting Connection with Websocket
-    websocket_connection = Faye::WebSocket::Client.new(WEBSOCKET_URL)
+    websocket_connection = Faye::WebSocket::Client.new(websocket_url)
 
     # Run when Established Connection
     websocket_connection.on :open do
@@ -32,7 +32,7 @@ def start_running_bot
     websocket_connection.on :message do |event|
       data = JSON.parse(event.data)
       p [:Message, data]
-      
+
       # 今日も一日
       if data['text'] == '今日も一日'
         websocket_connection.send(
@@ -43,7 +43,7 @@ def start_running_bot
           }.to_json
         )
       end
-      
+
       # notify when emojis published
       if data['type'] == 'emoji_changed'
 
