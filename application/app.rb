@@ -66,7 +66,7 @@ def start_running_bot
     end
 
     # Run when Closing Connection
-    websocket_connection.on :cose do
+    websocket_connection.on :close do
       p [:close, event.code]
       websocket_connection = nil
       EM.stop
