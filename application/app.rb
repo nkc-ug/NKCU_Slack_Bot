@@ -16,7 +16,7 @@ BOT_NOTIFICATION_CHANNEL = search_channelid(ENV['BOT_NOTIFICATION_CHANNEL'])
 
 def start_running_bot
   response = HTTP.post('https://slack.com/api/rtm.start',
-                      params: { token: SLACK_API_KEY })
+                       params: { token: SLACK_API_KEY })
 
   rc = JSON.parse(response.body)
 
