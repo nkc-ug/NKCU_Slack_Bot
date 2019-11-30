@@ -16,7 +16,7 @@ BOT_NOTIFICATION_CHANNEL = search_channelid(ENV['BOT_NOTIFICATION_CHANNEL'])
 
 def start_running_bot
   response = HTTP.post('https://slack.com/api/rtm.start',
-                      params: { token: SLACK_API_KEY })
+                       params: { token: SLACK_API_KEY })
 
   rc = JSON.parse(response.body)
 
@@ -66,7 +66,7 @@ def start_running_bot
     end
 
     # Run when Closing Connection
-    websocket_connection.on :close do
+    websocket_connection.on :close do |event|
       p [:close, event.code]
       websocket_connection = nil
       EM.stop
