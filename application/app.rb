@@ -14,7 +14,7 @@ require "#{__dir__}/get_channel_id/get_channel_id"
 SLACK_API_KEY = ENV['SLACK_API_KEY']
 BOT_NOTIFICATION_CHANNEL = search_channelid(ENV['BOT_NOTIFICATION_CHANNEL'])
 
-def start_running_bot
+loop do
   response = HTTP.post('https://slack.com/api/rtm.start',
                        params: { token: SLACK_API_KEY })
 
@@ -70,10 +70,6 @@ def start_running_bot
       p [:close, event.code]
       websocket_connection = nil
       EM.stop
-      # restart running bot process
-      start_running_bot
     end
   end
 end
-
-start_running_bot
