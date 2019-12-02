@@ -5,11 +5,8 @@ require 'http'
 require 'eventmachine'
 require 'faye/websocket'
 
-# getting a zoi image link
-require "#{__dir__}/zoi/zoi_get"
-
-# searching channel id
-require "#{__dir__}/get_channel_id/get_channel_id"
+# functions class
+require "#{__dir__}/functions"
 
 SLACK_API_KEY = ENV['SLACK_API_KEY']
 BOT_NOTIFICATION_CHANNEL = search_channelid(ENV['BOT_NOTIFICATION_CHANNEL'])
@@ -25,6 +22,7 @@ loop do
   EM.run do
     # Starting Connection with Websocket
     websocket_connection = Faye::WebSocket::Client.new(websocket_url)
+    functions = Functions.new(websocket_connection)
 
     # Run when Established Connection
     websocket_connection.on :open do
@@ -35,34 +33,7 @@ loop do
     websocket_connection.on :message do |event|
       data = JSON.parse(event.data)
       p [:Message, data]
-
-      # 今日も一日
-      if data['text'] == '今日も一日'
-        websocket_connection.send(
-          {
-            type: 'message',
-            text: zoi_get,
-            channel: data['channel']
-          }.to_json
-        )
-      end
-
-      # notify when emojis published
-      if data['type'] == 'emoji_changed'
-
-        if data['subtype'] == 'add'
-          emoji_name = data['name']
-
-          websocket_connection.send(
-            {
-              type: 'message',
-              text: "New Emojis Published! :#{emoji_name}:",
-              channel: BOT_NOTIFICATION_CHANNEL
-            }.to_json
-          )
-        end
-
-      end
+      functions.search_reply(data)
     end
 
     # Run when Closing Connection
