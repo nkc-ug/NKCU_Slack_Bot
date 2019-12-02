@@ -2,6 +2,7 @@
 
 require 'json'
 require 'http'
+require 'faye/websocket'
 
 # getting a zoi image link
 require "#{__dir__}/zoi/zoi_get"
