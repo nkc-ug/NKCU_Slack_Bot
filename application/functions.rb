@@ -1,11 +1,12 @@
 # frozen-string-literal: true
 
 require 'json'
-require 'http'
-require 'faye/websocket'
 
 # getting a zoi image link
 require "#{__dir__}/zoi/zoi_get"
+
+# getting random gif link
+require "#{__dir__}/gif_get/gif_get"
 
 # searching channel id
 require "#{__dir__}/get_channel_id/get_channel_id"
@@ -25,6 +26,11 @@ class Functions
   def search_reply(data)
     # Replying to `今日も一日`
     kyomo_ichinichi(data['channel']) if data['text'] == '今日も一日'
+
+    # Replying to `put_gif ~~`
+    if data['text']
+      send_gif(data['text'], data['channel']) if data['text'].include?('put_gif ')
+    end
 
     # notify when emojis published
     if data['type'] == 'emoji_changed'
@@ -62,4 +68,24 @@ class Functions
       }.to_json
     )
   end
+
+  ### sending gif_get result
+  #
+  # @param `message_text` : `data['text']`
+  # @param `channel` : sending channel
+  def send_gif(message_text, channel)
+    # split to space
+    search_query = message_text.split(' ')[1]
+    # check search_query is existing
+    unless search_query.nil?
+      @websocket_connection.send(
+        {
+          type: 'message',
+          text: gif_get(search_query),
+          channel: channel
+        }.to_json
+      )
+    end
+  end
+
 end
