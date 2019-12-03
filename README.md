@@ -19,6 +19,8 @@ SlackBot container service building on Ruby.
 ```.env
 # API KEY
 SLACK_API_KEY=INSERT_HERE
+# GIPHY_API_KEY
+GIPHY_API_KEY=INSERT_HERE
 # Notify Channel When publishing Emoji, etc
 BOT_NOTIFICATION_CHANNEL=general
 ```
