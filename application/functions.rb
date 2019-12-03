@@ -1,11 +1,12 @@
 # frozen-string-literal: true
 
 require 'json'
-require 'http'
-require 'faye/websocket'
 
 # getting a zoi image link
 require "#{__dir__}/zoi/zoi_get"
+
+# getting random gif link
+require "#{__dir__}/gif_get/gif_get"
 
 # searching channel id
 require "#{__dir__}/get_channel_id/get_channel_id"
