@@ -28,7 +28,9 @@ class Functions
     kyomo_ichinichi(data['channel']) if data['text'] == '今日も一日'
 
     # Replying to `put_gif ~~`
-    send_gif(data['text'], data['channel']) if data['text'].include?('put_gif ')
+    if data['text']
+      send_gif(data['text'], data['channel']) if data['text'].include?('put_gif ')
+    end
 
     # notify when emojis published
     if data['type'] == 'emoji_changed'
