@@ -3,9 +3,9 @@
 def gif_get(search_query)
   require 'http'
 
-  giphy_api_key = ENV['GIPHY_API_KEY']
+  tenor_api_key = ENV['TENOR_API_KEY']
   response = JSON.parse(HTTP.get('https://api.giphy.com/v1/gifs/search',
-                                 params: { api_key: giphy_api_key,
+                                 params: { api_key: tenor_api_key,
                                            q: search_query,
                                            limit: 50 }))
   if response['data'].empty?
