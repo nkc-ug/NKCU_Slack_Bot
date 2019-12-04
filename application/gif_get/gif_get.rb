@@ -14,5 +14,3 @@ def gif_get(search_query)
     response['data'].sample['images']['original']['url']
   end
 end
-
-pp gif_get('aiueo700')
