@@ -9,6 +9,8 @@ SlackBot container service building on Ruby.
 + 今日も一日
   + Return a image(inspire: [zoi.herokuapp.com](https://zoi.herokuapp.com/))
 
++ `put_gif {search_query}`
+  + search gif image from [tenor](https://tenor.com/) & post image
 # Usage 
 
 1. Issue a Token from [SlackAPI](https://api.slack.com/).
