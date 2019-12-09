@@ -75,7 +75,9 @@ class Functions
   # @param `channel` : sending channel
   def send_gif(message_text, channel)
     # delete string `put_gif` in message_text
-    message_text.slice!(0..7)
+    search_query = message_text
+    search_query.slice!(0..7)
+    p "SEARCH_QUERY: #{search_query}"
     # check search_query is existing
     unless search_query.nil?
       @websocket_connection.send(
