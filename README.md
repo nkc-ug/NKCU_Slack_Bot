@@ -1,6 +1,14 @@
 # NKCUG-Slack-Bot
+<div align="center">
+	<img src="README_images/zoo.png" alt="NKCUG_Slack_Bot_Logo">
+  SlackBot container service building on Ruby.
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+</div>
 
-SlackBot container service building on Ruby.
 
 # feature
 + Notification Emoji published.
