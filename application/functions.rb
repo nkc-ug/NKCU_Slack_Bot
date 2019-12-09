@@ -29,7 +29,7 @@ class Functions
 
     # Replying to `put_gif ~~`
     if data['text']
-      send_gif(data['text'], data['channel']) if data['text'].include?('put_gif ')
+      send_gif(data['text'], data['channel']) if data['text'] =~ /\Aput_gif /
     end
 
     # notify when emojis published
