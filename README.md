@@ -1,12 +1,10 @@
 # NKCUG-Slack-Bot
 <div align="center">
-	<img src="README_images/zoo.png" alt="NKCUG_Slack_Bot_Logo">
+	<img src="README_images/zoo.png" alt="NKCUG_Slack_Bot_Logo" style="width: 60%;">
+	<br>
+	<br>
   SlackBot container service building on Ruby.
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+
 </div>
 
 
