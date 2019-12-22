@@ -121,7 +121,6 @@ class Functions
       end
     end
 
-    puts "COMMAND STRING: #{command}"
     # getting shell commands output
     shellget_result = if command != ''
                         "```#{shell_get(command)}```"
