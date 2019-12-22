@@ -11,7 +11,7 @@ COPY application/Gemfile.lock app/
 
 WORKDIR /app
 RUN gem install bundler
-
+RUN gem install unf_ext -v '0.0.7.6'
 RUN bundle install
 
 COPY application ./
