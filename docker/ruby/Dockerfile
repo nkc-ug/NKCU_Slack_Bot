@@ -1,4 +1,4 @@
-FROM ruby:2.6.5
+FROM theoldmoon0602/shellgeibot
 
 RUN apt-get update
 
@@ -10,7 +10,9 @@ COPY application/Gemfile app/
 COPY application/Gemfile.lock app/
 
 WORKDIR /app
-RUN gem install bundler && bundle install
+RUN gem install bundler
+
+RUN bundle install
 
 COPY application ./
 
