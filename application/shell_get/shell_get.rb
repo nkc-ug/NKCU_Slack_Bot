@@ -10,6 +10,6 @@ def shell_get(command)
   if $CHILD_STATUS.exitstatus.zero?
     result
   else
-    "`Error! ReturnCode: #{$CHILD_STATUS.exitstatus}`"
+    "Error! ReturnCode: #{$CHILD_STATUS.exitstatus}"
   end
 end
