@@ -4,7 +4,7 @@ def shell_get(command)
   # Enable `$?` -> $CHILD_STATUS
   require 'English'
   # runnning shell command
-  result = system(command)
+  result = `#{command}`
 
   # `$CHILD_STATUS` -> catch returnCode from shell command
   if $CHILD_STATUS.exitstatus.zero?
