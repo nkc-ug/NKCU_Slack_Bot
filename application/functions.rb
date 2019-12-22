@@ -136,7 +136,10 @@ class Functions
         block_item['elements'].each do |rich_text_item|
 
           if rich_text_item['type'] == 'rich_text_preformatted'
-            command = rich_text_item['elements'][0]['text']
+            # escape when snipet is empty
+            unless rich_text_item['elements'].empty?
+              command = rich_text_item['elements'][0]['text']
+            end
           end
 
         end
