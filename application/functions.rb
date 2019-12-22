@@ -106,6 +106,7 @@ class Functions
   # @param `data` : incomming `Faye::WebSocket::Client#on :message`
   def send_shellgei(data)
     command = ''
+    is_include_shellgei_exec = false
 
     # putting command text
     data['blocks'].each do |block_item|
@@ -113,7 +114,11 @@ class Functions
 
         # eaching items
         block_item['elements'].each do |rich_text_item|
-          if rich_text_item['type'] == 'rich_text_preformatted'
+          if rich_text_item['type'] == 'text' && rich_text_item['text'].include?('shellgei_exec')
+            is_include_shellgei_exec = true
+          end
+
+          if rich_text_item['type'] == 'rich_text_preformatted' && is_include_shellgei_exec
             command = rich_text_item['elements'][0]['text']
           end
         end
