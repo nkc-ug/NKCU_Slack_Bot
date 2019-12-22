@@ -11,6 +11,9 @@ require "#{__dir__}/gif_get/gif_get"
 # searching channel id
 require "#{__dir__}/get_channel_id/get_channel_id"
 
+# shell_get
+require "#{__dir__}/shell_get/shell_get"
+
 # Sending json data at Slack RTM API with websocket connnections
 class Functions
   # initialize instance.
@@ -32,11 +35,40 @@ class Functions
       send_gif(data['text'], data['channel']) if data['text'] =~ /\Aput_gif /
     end
 
+    # Shellgei
+    if data['type'] == 'message'
+      # check writed snipet in messages
+      if data['text'] =~ /```.*```/
+
+        data['blocks'].each do |block_item|
+          if block_item['type'] == 'rich_text'
+
+            # eaching items
+            block_item['elements'].each do |rich_text_item|
+
+              # checking include 'shellgei_exec' in top
+              if rich_text_item['type'] == 'rich_text_section'
+
+                rich_text_item['elements'].each do |section_elements|
+                  if section_elements['type'] == 'text' && section_elements['text'].include?('shellgei_exec')
+                    send_shellgei(data)
+                  end
+                end
+
+              end
+            end
+
+          end
+
+        end
+      end
+    end
+
     # notify when emojis published
     if data['type'] == 'emoji_changed'
       notify_adding_emoji(data['name']) if data['subtype'] == 'add'
     end
-
+    
   end
 
   ### sending zoi_get
@@ -90,4 +122,44 @@ class Functions
     end
   end
 
+  ### sending gif_shellgei result
+  #
+  # @param `data` : incomming `Faye::WebSocket::Client#on :message`
+  def send_shellgei(data)
+    command = ''
+
+    # putting command text
+    data['blocks'].each do |block_item|
+      if block_item['type'] == 'rich_text'
+
+        # eaching items
+        block_item['elements'].each do |rich_text_item|
+
+          if rich_text_item['type'] == 'rich_text_preformatted'
+            # escape when snipet is empty
+            unless rich_text_item['elements'].empty?
+              command = rich_text_item['elements'][0]['text']
+            end
+          end
+
+        end
+
+      end
+    end
+
+    # getting shell commands output
+    shellget_result = if command != ''
+                        "```#{shell_get(command)}```"
+                      else
+                        '書式に問題があるようです'
+                      end
+    # sending shell output
+    @websocket_connection.send(
+      {
+        type: 'message',
+        text: shellget_result,
+        channel: data['channel']
+      }.to_json
+    )
+  end
 end

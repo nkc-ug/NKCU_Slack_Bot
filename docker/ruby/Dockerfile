@@ -1,7 +1,9 @@
-FROM ruby:2.6.5
+FROM theoldmoon0602/shellgeibot
 
 RUN apt-get update
 
+RUN apt-get install -y ruby-dev
+RUN apt-get install -y libssl-dev
 ENV BUNDLE_JOBS=4 \
     APP_DIR=/app
 
