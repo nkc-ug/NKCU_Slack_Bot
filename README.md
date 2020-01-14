@@ -49,3 +49,7 @@ The file structure should be like this.
 ```bash
 $ docker-compose up -d
 ```
+
+
+# LICENSE  
+MIT LICENSE
