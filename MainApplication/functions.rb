@@ -12,7 +12,7 @@ require "#{__dir__}/gif_get/gif_get"
 require "#{__dir__}/get_channel_id/get_channel_id"
 
 # shell_get
-require "#{__dir__}/shell_get/shell_get"
+# require "#{__dir__}/shell_get"
 
 # Sending json data at Slack RTM API with websocket connnections
 class Functions

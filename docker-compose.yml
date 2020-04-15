@@ -1,11 +1,11 @@
 version: '2'
 
 services: 
-  application:
+  main_application:
     build:
       # TODO: Ruby公式Imageに置き換える
       context: ./
-      dockerfile: docker/shellgei_container/Dockerfile
+      dockerfile: docker/MainApplication/Dockerfile
     volumes:
       - ./MainApplication:/app
     environment: 
