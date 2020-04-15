@@ -19,5 +19,7 @@ services:
       context: ./
       dockerfile: docker/shellgei_container/Dockerfile
     volumes:
-      - ./MainApplication:/app
-    command: ruby app.rb
+      - ./shellgei_container:/app
+    command: ruby app.rb -o 0.0.0.0
+    ports:
+    - 8080:4567
