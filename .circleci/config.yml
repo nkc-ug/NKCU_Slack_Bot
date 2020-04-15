@@ -3,7 +3,7 @@ jobs:
 
   Deploy:
     docker:
-      - image: circleci/ruby:2.7.0
+      - image: circleci/shellgei_container:2.7.0
     working_directory: ~/NKCUG_Slack_Bot
 
     steps:
