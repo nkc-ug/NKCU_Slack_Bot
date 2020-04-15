@@ -1,14 +1,22 @@
 version: '2'
 
 services: 
-  ruby: 
+  application:
     build: 
       context: ./
       dockerfile: docker/ruby/Dockerfile
     volumes:
-      - ./application:/app
+      - ./MainApplication:/app
     environment: 
       SLACK_API_KEY: ${SLACK_API_KEY}
       TENOR_API_KEY: ${TENOR_API_KEY}
       BOT_NOTIFICATION_CHANNEL: ${BOT_NOTIFICATION_CHANNEL}
+    command: ruby app.rb
+
+  shellgei:
+    build:
+      context: ./
+      dockerfile: docker/ruby/Dockerfile
+    volumes:
+      - ./MainApplication:/app
     command: ruby app.rb
