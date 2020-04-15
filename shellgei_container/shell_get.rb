@@ -5,8 +5,12 @@ def shell_get(command)
   require 'English'
 
   begin
-    # runnning shell command
-    result = `#{command}` rescue "Error! ReturnCode: #{$CHILD_STATUS.exitstatus}"
+    # running shell command
+    result = begin
+               `#{command}`
+             rescue StandardError
+               "Error! ReturnCode: #{$CHILD_STATUS.exitstatus}"
+             end
   end
   # `$CHILD_STATUS` -> catch returnCode from shell command
   if $CHILD_STATUS.exitstatus.zero?
