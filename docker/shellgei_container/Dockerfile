@@ -8,12 +8,12 @@ ENV BUNDLE_JOBS=4 \
     APP_DIR=/app
 
 RUN mkdir app
-COPY application/Gemfile app/
-COPY application/Gemfile.lock app/
+COPY shellgei_container/Gemfile app/
+COPY shellgei_container/Gemfile.lock app/
 
 WORKDIR /app
 RUN gem install bundler && bundle install
 
-COPY application ./
+COPY shellgei_container ./
 
-# RUN ruby app.rb
+# RUN shellgei_container app.rb

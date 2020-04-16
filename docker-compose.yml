@@ -1,14 +1,25 @@
 version: '2'
 
 services: 
-  ruby: 
-    build: 
+  main_application:
+    build:
+      # TODO: Ruby公式Imageに置き換える
       context: ./
-      dockerfile: docker/ruby/Dockerfile
+      dockerfile: docker/MainApplication/Dockerfile
     volumes:
-      - ./application:/app
+      - ./MainApplication:/app
     environment: 
       SLACK_API_KEY: ${SLACK_API_KEY}
       TENOR_API_KEY: ${TENOR_API_KEY}
       BOT_NOTIFICATION_CHANNEL: ${BOT_NOTIFICATION_CHANNEL}
     command: ruby app.rb
+
+  shellgei:
+    build:
+      context: ./
+      dockerfile: docker/shellgei_container/Dockerfile
+    volumes:
+      - ./shellgei_container:/app
+    command: ruby app.rb -o 0.0.0.0
+    ports:
+    - 8080:4567
