@@ -3,6 +3,9 @@
 require 'net/http'
 require 'json'
 
+#
+# shellgei container accessor
+# @param command command string
 def shell_get(command)
   uri_at_shellgei = URI.parse('http://shellgei:4567')
   parameter = { command: command }
