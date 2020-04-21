@@ -14,16 +14,16 @@ require "#{__dir__}/get_channel_id/get_channel_id"
 # shell_get
 require "#{__dir__}/shell_get"
 
-# Sending json data at Slack RTM API with websocket connnections
+# Sending json data at Slack RTM API with websocket connections
 class Functions
   # initialize instance.
   # @param [websocket] websocket connection instance.(`Faye::WebSocket::Client`)
   def initialize(argument_websocket)
     @websocket_connection = argument_websocket
-    @bot_notification_channel = search_channelid(ENV['BOT_NOTIFICATION_CHANNEL'])
+    @bot_notification_channel = search_channel_id(ENV['BOT_NOTIFICATION_CHANNEL'])
   end
 
-  # runnning functions
+  # running functions
   #
   # @param [data] incomming `Faye::WebSocket::Client#on :message`
   def search_reply(data)
@@ -37,13 +37,13 @@ class Functions
 
     # Shellgei
     if data['type'] == 'message'
-      # check writed snipet in messages
+      # check written snippet in messages
       if data['text'] =~ /```.*```/
 
         data['blocks'].each do |block_item|
           if block_item['type'] == 'rich_text'
 
-            # eaching items
+            # each items
             block_item['elements'].each do |rich_text_item|
 
               # checking include 'shellgei_exec' in top
@@ -64,11 +64,11 @@ class Functions
       end
     end
 
-    # notify when emojis published
+    # notify when emoji published
     if data['type'] == 'emoji_changed'
       notify_adding_emoji(data['name']) if data['subtype'] == 'add'
     end
-    
+
   end
 
   ### sending zoi_get
@@ -87,7 +87,7 @@ class Functions
     )
   end
 
-  ### notifying specified channnel at `bot_notification_channel`
+  ### notifying specified channel at `bot_notification_channel`
   #
   # @param [data] incomming data(`Faye::WebSocket::Client#on :message`)
 
@@ -132,11 +132,11 @@ class Functions
     data['blocks'].each do |block_item|
       if block_item['type'] == 'rich_text'
 
-        # eaching items
+        # each items
         block_item['elements'].each do |rich_text_item|
 
           if rich_text_item['type'] == 'rich_text_preformatted'
-            # escape when snipet is empty
+            # escape when snippet is empty
             unless rich_text_item['elements'].empty?
               command = rich_text_item['elements'][0]['text']
             end
