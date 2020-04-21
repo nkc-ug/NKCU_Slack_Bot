@@ -14,13 +14,13 @@ require "#{__dir__}/get_channel_id/get_channel_id"
 # shell_get
 require "#{__dir__}/shell_get"
 
-# Sending json data at Slack RTM API with websocket connnections
+# Sending json data at Slack RTM API with websocket connections
 class Functions
   # initialize instance.
   # @param [websocket] websocket connection instance.(`Faye::WebSocket::Client`)
   def initialize(argument_websocket)
     @websocket_connection = argument_websocket
-    @bot_notification_channel = search_channelid(ENV['BOT_NOTIFICATION_CHANNEL'])
+    @bot_notification_channel = search_channel_id(ENV['BOT_NOTIFICATION_CHANNEL'])
   end
 
   # runnning functions

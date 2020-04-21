@@ -1,6 +1,6 @@
 # frozen-string-literal: true
 
-def search_channelid(search_channel_name)
+def search_channel_id(search_channel_name)
   require 'json'
   require 'http'
 

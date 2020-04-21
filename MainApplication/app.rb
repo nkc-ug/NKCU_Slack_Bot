@@ -9,7 +9,7 @@ require 'faye/websocket'
 require "#{__dir__}/functions"
 
 SLACK_API_KEY = ENV['SLACK_API_KEY']
-BOT_NOTIFICATION_CHANNEL = search_channelid(ENV['BOT_NOTIFICATION_CHANNEL'])
+BOT_NOTIFICATION_CHANNEL = search_channel_id(ENV['BOT_NOTIFICATION_CHANNEL'])
 
 loop do
   response = HTTP.post('https://slack.com/api/rtm.start',
