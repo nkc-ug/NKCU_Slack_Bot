@@ -14,6 +14,9 @@ require "#{__dir__}/get_channel_id/get_channel_id"
 # shell_get
 require "#{__dir__}/shell_get"
 
+# upload images
+require "#{__dir__}/file_provider/file_provider"
+
 # Sending json data at Slack RTM API with websocket connections
 class Functions
   # initialize instance.
@@ -78,13 +81,15 @@ class Functions
   private
 
   def kyomo_ichinichi(channel)
-    @websocket_connection.send(
-      {
-        type: 'message',
-        text: zoi_get,
-        channel: channel
-      }.to_json
-    )
+    filepath = download_file(zoi_get)
+    result = upload_file(filepath, channel)
+    if result
+      puts 'File Send Succeed.'
+      FileUtils.rm(filepath)
+    else
+      puts 'File Send Failed.'
+      puts "Failed File: #{filepath}"
+    end
   end
 
   ### notifying specified channel at `bot_notification_channel`
