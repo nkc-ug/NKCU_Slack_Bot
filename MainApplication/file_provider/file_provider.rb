@@ -10,9 +10,9 @@ class FileProvider
   # @param endpoint <string> image file link
   # @return <string> if succeed, return absolute image file path
   def download_file(endpoint)
-    # 1. 'https://pbs.twimg.com/media/BspTawrCEAAwQnP.jpg:large' => 'media/BspTawrCEAAwQnP.jpg'
-    # 2. 'media/BspTawrCEAAwQnP.jpg' => 'BspTawrCEAAwQnP.jpg'
-    filename = endpoint[/media\/.*.jpg/][6..]
+    # 1. 'https://pbs.twimg.com/media/BspTawrCEAAwQnP.jpg:large' => 'BspTawrCEAAwQnP.jpg|:large'
+    # 2. 'BspTawrCEAAwQnP.jpg:large' => 'BspTawrCEAAwQnP.jpg'
+    filename = File.basename(endpoint)[/.*.(jpg|png|gif)/]
     absolute_path = ''
     URI.open(endpoint) do |binary|
       File.open("#{__dir__}/../download_images/#{filename}", mode = 'w'){|file|
