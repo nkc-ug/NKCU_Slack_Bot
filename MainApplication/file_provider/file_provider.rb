@@ -34,10 +34,12 @@ def upload_file(filepath, channel)
   end
 
   ## upload file
-  Slack.files_upload(
+  result = Slack.files_upload(
     file: Faraday::UploadIO.new(filepath, 'image/jpg'),
     filename: File.basename(filepath),
     filetype: File.extname(filepath),
     channels: channel
   )
+
+  result['ok']
 end
