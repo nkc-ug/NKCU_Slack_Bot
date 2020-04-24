@@ -10,3 +10,7 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 gem 'eventmachine'
 gem 'faye-websocket'
 gem 'http'
+
+# 一部のみ利用
+gem 'slack-api'
+gem 'faraday'
