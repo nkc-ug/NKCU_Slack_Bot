@@ -13,6 +13,7 @@ def download_file(endpoint)
     File.open("#{__dir__}/../download_images/#{filename}", mode = 'w'){|file|
       file.write(binary.read)
     }
+    true
   end
 rescue OpenURI::HTTPError
   'リソース取得に失敗しました'
