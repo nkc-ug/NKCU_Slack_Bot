@@ -14,7 +14,7 @@ require "#{__dir__}/get_channel_id/get_channel_id"
 # shell_get
 require "#{__dir__}/shell_get"
 
-# upload images
+## upload images class
 require "#{__dir__}/file_provider/file_provider"
 
 # Sending json data at Slack RTM API with websocket connections
@@ -81,8 +81,9 @@ class Functions
   private
 
   def kyomo_ichinichi(channel)
-    filepath = download_file(zoi_get)
-    result = upload_file(filepath, channel)
+    file_provider = FileProvider.new
+    filepath = file_provider.download_file(zoi_get)
+    result = file_provider.upload_file(filepath, channel)
     if result
       puts 'File Send Succeed.'
       FileUtils.rm(filepath)
@@ -117,19 +118,25 @@ class Functions
 
     # check search_query is existing
     unless search_query.nil?
-      @websocket_connection.send(
-        {
-          type: 'message',
-          text: gif_get(search_query),
-          channel: channel
-        }.to_json
-      )
+
+      file_provider = FileProvider.new
+      endpoint = gif_get(search_query)
+      filepath = file_provider.download_file(endpoint)
+      result = file_provider.upload_file(filepath, channel)
+
+      if result
+        puts 'File Send Succeed.'
+        FileUtils.rm(filepath)
+      else
+        puts 'File Send Failed.'
+        puts "Failed File: #{filepath}"
+      end
     end
   end
 
   ### sending gif_shellgei result
   #
-  # @param `data` : incomming `Faye::WebSocket::Client#on :message`
+  # @param `data` : incoming `Faye::WebSocket::Client#on :message`
   def send_shellgei(data)
     command = ''
 
