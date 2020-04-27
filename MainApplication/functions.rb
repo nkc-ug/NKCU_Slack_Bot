@@ -121,15 +121,26 @@ class Functions
 
       file_provider = FileProvider.new
       endpoint = gif_get(search_query)
-      filepath = file_provider.download_file(endpoint)
-      result = file_provider.upload_file(filepath, channel)
 
-      if result
-        puts 'File Send Succeed.'
-        FileUtils.rm(filepath)
+      if endpoint == 'SearchCount: 0'
+        @websocket_connection.send(
+          {
+            type: 'message',
+            text: endpoint,
+            channel: channel
+          }.to_json
+        )
       else
-        puts 'File Send Failed.'
-        puts "Failed File: #{filepath}"
+        filepath = file_provider.download_file(endpoint)
+        result = file_provider.upload_file(filepath, channel)
+
+        if result
+          puts 'File Send Succeed.'
+          FileUtils.rm(filepath)
+        else
+          puts 'File Send Failed.'
+          puts "Failed File: #{filepath}"
+        end
       end
     end
   end
