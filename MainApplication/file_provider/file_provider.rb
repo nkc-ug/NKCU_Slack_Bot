@@ -10,6 +10,8 @@ class FileProvider
   # @param endpoint <string> image file link
   # @return <string> if succeed, return absolute image file path
   def download_file(endpoint)
+
+    Dir.mkdir('download_images') unless Dir.exist?('download_images')
     # 1. 'https://pbs.twimg.com/media/BspTawrCEAAwQnP.jpg:large' => 'BspTawrCEAAwQnP.jpg|:large'
     # 2. 'BspTawrCEAAwQnP.jpg:large' => 'BspTawrCEAAwQnP.jpg'
     filename = File.basename(endpoint)[/.*.(jpg|png|gif)/]
