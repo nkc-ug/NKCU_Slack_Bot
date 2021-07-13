@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.7.0)
+    addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
@@ -29,7 +29,7 @@ GEM
       ffi-compiler (>= 1.0, < 2.0)
     multi_json (1.14.1)
     multipart-post (2.1.1)
-    public_suffix (4.0.4)
+    public_suffix (4.0.6)
     rake (13.0.1)
     slack-api (1.6.1)
       faraday (~> 0.11)
